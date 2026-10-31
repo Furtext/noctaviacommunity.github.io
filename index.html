@@ -1,0 +1,1028 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#100b16">
+    <title>Noctavia Community</title>
+
+    <link rel="icon" type="image/svg+xml" href="favoicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0d0a12;
+            --bg-light: #15101d;
+            --card: #191321;
+            --purple: #9333ea;
+            --red: #ef4444;
+            --text: #ffffff;
+            --muted: #a49aaa;
+            --gradient: linear-gradient(120deg, #9333ea, #ef4444);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* BACKGROUND */
+
+        .background-glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: .12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .glow-purple {
+            background: #9333ea;
+            top: -200px;
+            left: -150px;
+        }
+
+        .glow-red {
+            background: #ef4444;
+            right: -200px;
+            top: 400px;
+        }
+
+        /* NAVBAR */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(13, 10, 18, .85);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .navbar {
+            max-width: 1250px;
+            height: 78px;
+            margin: auto;
+            padding: 0 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+        }
+
+        .nav-links a.active::after {
+            content: "";
+            display: block;
+            height: 2px;
+            margin-top: 5px;
+            background: var(--gradient);
+        }
+
+        .discord-btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            background: var(--gradient);
+            color: white !important;
+            font-weight: 700 !important;
+            transition: .3s;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 25px rgba(147,51,234,.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            color: white;
+            background: none;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        /* PAGE SYSTEM */
+
+        .page {
+            display: none;
+            min-height: 75vh;
+            animation: pageEnter .45s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 25px;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 680px;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 15px;
+            background: rgba(147,51,234,.12);
+            border: 1px solid rgba(147,51,234,.3);
+            border-radius: 30px;
+            color: #c084fc;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .hero-tag span {
+            width: 7px;
+            height: 7px;
+            background: #a855f7;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #a855f7;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 88px);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -4px;
+        }
+
+        .gradient-text {
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 550px;
+            color: var(--muted);
+            line-height: 1.9;
+            font-size: 15px;
+            margin-top: 25px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-secondary {
+            border-color: rgba(255,255,255,.15);
+            color: white;
+            background: rgba(255,255,255,.03);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 30px rgba(147,51,234,.3);
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 90px 0;
+        }
+
+        .section-heading {
+            margin-bottom: 40px;
+        }
+
+        .section-heading small {
+            color: #c084fc;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-top: 12px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 12px;
+            line-height: 1.8;
+        }
+
+        /* SERVER CARDS */
+
+        .server-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .server-card {
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 12px;
+            padding: 25px;
+            transition: .3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .server-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(147,51,234,.4);
+        }
+
+        .server-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: rgba(147,51,234,.15);
+            font-size: 23px;
+            margin-bottom: 20px;
+        }
+
+        .server-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .server-card p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .server-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,.07);
+            padding-top: 17px;
+            margin-top: 20px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .status {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .status::before {
+            content: "";
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #fbbf24;
+            border-radius: 50%;
+            margin-right: 7px;
+        }
+
+        /* NOTES */
+
+        .notes {
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .notes p {
+            color: var(--muted);
+            line-height: 2;
+            font-size: 13px;
+        }
+
+        /* PAGE HEADER */
+
+        .page-header {
+            padding: 170px 0 65px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: clamp(38px, 6vw, 58px);
+            font-weight: 900;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* TEST NOTICE */
+
+        .test-notice {
+            background: rgba(234,179,8,.07);
+            border: 1px solid rgba(234,179,8,.2);
+            padding: 18px 22px;
+            border-radius: 9px;
+            color: #facc15;
+            font-size: 12px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .test-notice strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        /* ABOUT */
+
+        .about-box {
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,.07);
+            padding: 40px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
+
+        .about-box h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .about-box p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .value-card {
+            padding: 25px;
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 10px;
+        }
+
+        .value-card h3 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: #c084fc;
+        }
+
+        .value-card p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #09070d;
+            border-top: 1px solid rgba(255,255,255,.07);
+            padding: 50px 25px 25px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1150px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-brand h2 {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .footer-brand p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .socials a {
+            padding: 11px 15px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 7px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        .socials a:hover {
+            color: white;
+            border-color: #9333ea;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            max-width: 1150px;
+            margin: 35px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,.06);
+            color: #716979;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 850px) {
+            .server-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-values {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 650px) {
+            .navbar {
+                height: 70px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                padding: 25px;
+                background: #110d18;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 25px;
+                border-bottom: 1px solid rgba(255,255,255,.08);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .hero {
+                min-height: 600px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .server-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2 {
+                font-size: 29px;
+            }
+
+            .about-box {
+                padding: 25px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .socials {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="background-glow glow-purple"></div>
+<div class="background-glow glow-red"></div>
+
+<!-- NAVBAR -->
+
+<header>
+    <nav class="navbar">
+
+        <a href="#home" class="logo">NOCTAVIA COMMUNITY</a>
+
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="active">Ana Sayfa</a>
+            <a href="#servers">Sunucular</a>
+            <a href="#about">Hakkımızda</a>
+            <a href="https://discord.gg/dTJN4axBx5" target="_blank" class="discord-btn">Discord'a Katıl ↗</a>
+        </div>
+
+    </nav>
+</header>
+
+
+<!-- ANA SAYFA -->
+
+<main>
+
+<div class="page active" id="home">
+
+    <section class="hero">
+        <div class="container">
+
+            <div class="hero-content">
+
+                
+
+                <h1>
+                    <span class="gradient-text">NOCTAVIA</span> <br>
+                    COMMUNITY
+                </h1>
+
+                <p>
+                    Noctavia, oyun deneyimini farklı bir seviyeye taşımak
+                    amacıyla oluşturulmuş bir oyun topluluğudur.
+                    Birlikte oynuyor, birlikte gelişiyor ve kendi
+                    dünyamızı oluşturuyoruz.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="https://discord.com/" target="_blank" class="btn btn-primary">
+                        Discord'a Katıl ↗
+                    </a>
+
+                    <a href="#servers" class="btn btn-secondary">
+                        Sunucuları Keşfet →
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- AKTIF SUNUCULAR -->
+
+    <section>
+        <div class="container">
+
+            <div class="section-heading">
+                <h2>Aktif <span class="gradient-text">Sunucularımız</span></h2>
+                <p>Noctavia bünyesindeki sunucularımız:</p>
+            </div>
+
+            <div class="server-grid">
+
+                <div class="server-card">
+                    <div class="server-icon">🎮</div>
+                    <h3>SCP ROLEPLAY</h3>
+                    <p>
+                        Noctavia'nın SCP:RP sunucusu.
+                    </p>
+
+                    <div class="server-info">
+                        <span>GMod</span>
+                        <span class="status">Test aşamasında</span>
+                    </div>
+                </div>
+
+                <div class="server-card">
+                    <div class="server-icon">🧪</div>
+                    <h3>DARK RP</h3>
+                    <p>
+                        Noctavia'nın City:RP sunucusu.
+                    </p>
+
+                    <div class="server-info">
+                        <span>GMod</span>
+                        <span class="status">Test aşamasında</span>
+                    </div>
+                </div>
+
+                <div class="server-card">
+                    <div class="server-icon">⚙️</div>
+                    <h3>Yakında...</h3>
+                    <p>
+                        Yapım aşamasında
+                    </p>
+
+                    <div class="server-info">
+                        <span></span>
+                        <span class="status">Planlanıyor</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- NOTLAR -->
+
+    <section>
+        <div class="container">
+
+            <div class="section-heading">
+                <small></small>
+                <h2><span class="gradient-text">Ekstra</span></h2>
+            </div>
+
+            <div class="notes">
+                <p>
+                    • Bu web sitesi yapay zeka kullanılarak yapılmıştır çünkü biz web sitesi alanıyla değil, oyun alanıyla uğraşıyoruz. <br>
+                    • Amacımız hiç bir zaman kazanç sağlamak değil, oyuncularımıza en iyi deneyimi sunmaktır.
+                    
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+
+<!-- SUNUCULAR SAYFASI -->
+
+<div class="page" id="servers">
+
+    <section class="page-header">
+        <div class="container">
+            <div class="hero-tag">NOCTAVIA COMMUNITY</div>
+
+            <h1><span class="gradient-text">SUNUCULARIMIZ</span></h1>
+
+            <p>Noctavia bünyesindeki tüm oyun sunucuları.</p>
+        </div>
+    </section>
+
+    <section style="padding-top: 20px;">
+        <div class="container">
+
+            <div class="test-notice">
+                <strong>⚠ GÖRSEL AMAÇLIDIR</strong>
+                Bu sayfa şu anda geliştirme ve tasarım testleri için
+                örnek veriler içermektedir. Gösterilen IP, oyuncu
+                sayısı ve ping bilgileri gerçek değildir.
+            </div>
+
+            <div class="server-grid">
+
+                <div class="server-card">
+                    <div class="server-icon">🎮</div>
+
+                    <h3>Garry's Mod - DarkRP</h3>
+
+                    <p>
+                        Noctavia DarkRP oyun sunucusu.
+                        Özel içerikler ve sistemler.
+                    </p>
+
+                    <div class="server-info">
+                        <span>IP: 127.0.0.1:27015</span>
+                        <span class="status">TEST</span>
+                    </div>
+
+                    <div class="server-info">
+                        <span>Oyuncular: 0/64</span>
+                        <span>Ping: -- ms</span>
+                    </div>
+                </div>
+
+
+                <div class="server-card">
+                    <div class="server-icon">🧪</div>
+
+                    <h3>SCP: Secret Laboratory</h3>
+
+                    <p>
+                        Noctavia SCP sunucusu.
+                        Özel oyun deneyimi.
+                    </p>
+
+                    <div class="server-info">
+                        <span>IP: 127.0.0.1</span>
+                        <span class="status">TEST</span>
+                    </div>
+
+                    <div class="server-info">
+                        <span>Oyuncular: 0/30</span>
+                        <span>Ping: -- ms</span>
+                    </div>
+                </div>
+
+
+                <div class="server-card">
+                    <div class="server-icon">⚙️</div>
+
+                    <h3>Yeni Sunucu</h3>
+
+                    <p>
+                        Yeni sunucumuz hakkında bilgiler
+                        ilerleyen dönemlerde eklenecektir.
+                    </p>
+
+                    <div class="server-info">
+                        <span>IP: Yakında</span>
+                        <span class="status">PLANLANIYOR</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+
+<!-- HAKKIMIZDA SAYFASI -->
+
+<div class="page" id="about">
+
+    <section class="page-header">
+        <div class="container">
+
+            <div class="hero-tag">BİZ KİMİZ ULAN</div>
+
+            <h1>Noctavia Tarihi<span class="gradient-text"></span></h1>
+
+            <p>Noctavia'nın hikâyesini ve hedeflerini keşfet.</p>
+
+        </div>
+    </section>
+
+    <section style="padding-top: 20px;">
+        <div class="container">
+
+            <div class="about-box">
+
+                <h2>Öncelikle...<span class="gradient-text"></span></h2>
+
+                <p>
+                    2022-2023 yıllarında bir sunucu kurulmuştu, adı "White SCP" idi, bu bir GMOD SCP sunucusuydu. 
+Bir zaman sonra, sunuya *[REACTED]* isimli birisi geldi, kendisi sunucya yardım etmeye başladı ama bir süre sonra kibirlendi ve sunucuya zarar vermeye başladı ve bende fişini çekip banladım ve o gün sunucu kapandı.
+
+Bir kaç ay sonra "White Dublaj" adında bir sunucu açıldı, sunucu gayet başarıya gidiyordu, ondan sonra *[REACTED]* isimli biri geldi, önceki olaylardaki gibi oda bir hırsa büründü, kendi sunucusunu açmış reklamını yapıyordu.
+Bir süre sonra onu banladım ve ona acıyıp geri aldım ve sunucunun içinden geçti.
+
+Ondan uzunca bir süre sonra yine GMOD a dönerek SCP RP açmaya karar vermiştim.
+Bu sefer sunucunun adını "WHITE HEAVEN" olarak değiştirdim ( bir kaç telif iddaları yüzünden )
+Sonra sunucuyu açtım ve güzel oyanıyordu, bir süre sonra *lanet* DDoS saldırıları ile hevisimin içinden geçtiler ve kapattım.
+
+Bir süre sonra marka adını "Noctavia" olarak değiştirdim ve sunucu açmak yerine diğer ad ile "Noctavia Studios" olarak indie oyun markasına çevirdim ve uzun süre sessiz kaldık ( hala sezzisiz .d ).
+
+En son olarak bu sunucuyu kurma kararı aldım.
+
+__8/4/2026 - Ekleme__
+Noctavia artık oyun sunucularından bağımsız tutularak başka projeler için kullanılma kararı alınmıştır, aldım. Şuan güncel olarak yine oyun sunucuları olarak hizmet vericek,
+bu web sitesi ise sadece oyun sunucularımız için olucak orjinal Noctavia için daha farklı bir sunucu olucaktır.
+                </p>
+
+            </div>
+
+
+            <div class="about-values">
+
+
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+            <h2>NOCTAVIA</h2>
+
+            <p>
+                Harbici iyi deneyimciyiz.
+            </p>
+        </div>
+
+        <div class="socials">
+
+            <a href="https://discord.gg/dTJN4axBx5" target="_blank">Discord ↗</a>
+
+            <a href="https://www.youtube.com/@noctaviacommunity" target="_blank">YouTube ↗</a>
+
+            <a href="https://steamcommunity.com/groups/noctavia_community" target="_blank">Steam Grubu ↗</a>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 Noctavia. Tüm hakları saklıdır.
+        Noctavia adı ve ilgili içerikler izinsiz kullanılamaz.
+    </div>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+    // SAYFA GEÇİŞLERİ
+
+    const pages = document.querySelectorAll('.page');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navLinks');
+
+    function navigate() {
+
+        let page = location.hash.replace('#', '') || 'home';
+
+        if (!document.getElementById(page) ||
+            !document.getElementById(page).classList.contains('page')) {
+            page = 'home';
+            history.replaceState(null, '', '#home');
+        }
+
+        pages.forEach(p => {
+            p.classList.remove('active');
+        });
+
+        document.getElementById(page).classList.add('active');
+
+        navLinks.forEach(link => {
+            link.classList.toggle(
+                'active',
+                link.getAttribute('href') === '#' + page
+            );
+        });
+
+        navMenu.classList.remove('show');
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    window.addEventListener('hashchange', navigate);
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('show');
+        });
+    });
+
+    // MOBİL MENÜ
+
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+    });
+
+    // İLK SAYFA
+
+    navigate();
+
+</script>
+
+</body>
+</html>
